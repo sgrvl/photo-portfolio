@@ -1,0 +1,38 @@
+.Feed-grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  position: relative
+
+.Feed-img-wrap
+  background-color: white
+  padding: 15px
+  height: 30vh
+  display: flex
+  justify-content: center
+  align-items: center
+
+.Feed-img
+  cursor: pointer
+  max-height: 100%
+  max-width: 100%
+
+.Zoom
+  height: 100vh
+  width: 100vw
+  display: flex
+  flex-direction: column
+  align-items: center
+  position: fixed
+  top: 0
+  z-index: 2
+  background-color: white
+  padding: 7%
+
+  img
+    max-height: 100%
+    max-width: 100%
+
+  &-Not
+    display: none
+
+  
