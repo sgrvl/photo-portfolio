@@ -8,6 +8,7 @@
   flex-wrap: wrap
   justify-content: space-evenly
   position: relative
+  padding-top: 5em
 
 .Feed-img-wrap
   background-color: white
@@ -19,11 +20,13 @@
 
 .Feed-img
   cursor: pointer
-  height: 20vw
-  width: 20vw
+  max-width: 320px
+  width: 100%
+  height: 100%
+  padding: 1em
   object-fit: contain
-  //max-height: 100%
-  //max-width: 100%
+  user-select: none
+  -webkit-tap-highlight-color: transparent
 
 .Zoom
   height: 100%
@@ -45,4 +48,24 @@
   &-Not
     display: none
 
+.Img-Loader-Wrap
+  width: 100vw
+  height: min-content
+  margin: 1em 0  
+  display: flex
+  justify-content: center
   
+.Img-Loader
+  border: 3px solid #f3f3f3
+  border-top: 3px solid black
+  border-radius: 50%
+  width: 25px
+  height: 25px
+  animation: spin 2s linear infinite
+
+
+@keyframes spin 
+  0% 
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)

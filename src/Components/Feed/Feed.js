@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Image from "./Image/Image";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 class Feed extends Component {
 	state = {
 		clicked: "",
 		index: "",
 		imgArr: [],
+		imgArrLoad: [],
 		open: false,
 	};
 
@@ -42,7 +44,10 @@ class Feed extends Component {
 				sessionStorage.setItem(index, require(`../../img/${image}`));
 				return null;
 			});
-		this.setState({ imgArr: imgArr });
+
+		const imgArrLoad = imgArr.splice(0, 20);
+		//console.log(imgArrLoad, imgArr);
+		this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
 	}
 
 	handleRight = () => {
@@ -60,9 +65,18 @@ class Feed extends Component {
 		}
 	};
 
+	fetchMoreImages = () => {
+		setTimeout(() => {
+			const imgArr = this.state.imgArr;
+			const imgArrLoad = this.state.imgArrLoad.concat(imgArr.splice(0, 20));
+
+			this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
+		}, 1500);
+	};
+
 	render() {
 		return (
-			<div className="Feed">
+			<div className="Feed" id="Feed">
 				<div className={this.state.open ? "Zoom" : "Zoom-Not"}>
 					<div>
 						<button onClick={this.handleButtonClick}>X</button>
@@ -72,7 +86,7 @@ class Feed extends Component {
 						<button id="right" onClick={this.handleRight}>
 							&#8594;
 						</button>
-						<div>{`${this.state.index + 1}/${sessionStorage.length}`}</div>
+						<div>{`${this.state.index}/${sessionStorage.length - 1}`}</div>
 					</div>
 					<Image
 						src={
@@ -83,9 +97,21 @@ class Feed extends Component {
 						open={this.state.open}
 					/>
 				</div>
-
-				<div className="Feed-grid">
-					{this.state.imgArr.map((image, index) => {
+				<InfiniteScroll
+					className="Feed-grid"
+					dataLength={this.state.imgArrLoad.length}
+					next={this.fetchMoreImages}
+					hasMore={this.state.imgArr.length !== 0}
+					scrollThreshold="95%"
+					loader={
+						<div className="Img-Loader-Wrap">
+							<div className="Img-Loader" />
+						</div>
+					}
+					scrollableTarget="Feed"
+					endMessage={<h4>Fin</h4>}
+				>
+					{this.state.imgArrLoad.map((image, index) => {
 						return (
 							<div className="Feed-img-wrap" key={index}>
 								<img
@@ -97,13 +123,10 @@ class Feed extends Component {
 							</div>
 						);
 					})}
-				</div>
+				</InfiniteScroll>
 			</div>
 		);
 	}
 }
 
 export default Feed;
-
-//<img src={`${process.env.PUBLIC_URL}/img/IMG_0125.jpg`} alt="" />
-//D:\Users\Simon\Desktop\Web\React\photo-portfolio\src\img
