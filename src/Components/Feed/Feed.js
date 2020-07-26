@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Image from "./Image";
+import Image from "./Image/Image";
 
 class Feed extends Component {
 	state = {
@@ -30,6 +30,7 @@ class Feed extends Component {
 	};
 
 	componentDidMount() {
+		console.log(Math.random());
 		const images = this.importAll(
 			require.context("../../img", false, /\.(jpg)$/)
 		);
