@@ -32,21 +32,17 @@ class Feed extends Component {
 	};
 
 	componentDidMount() {
-		console.log(Math.random());
 		const images = this.importAll(
 			require.context("../../img", false, /\.(jpg)$/)
 		);
 		const imgArr = [];
 		Object.keys(images).map((image) => imgArr.push(image));
-		imgArr
-			.sort(() => Math.random() - 0.5)
-			.map((image, index) => {
-				sessionStorage.setItem(index, require(`../../img/${image}`));
-				return null;
-			});
+		imgArr.map((image, index) => {
+			sessionStorage.setItem(index, require(`../../img/${image}`));
+			return null;
+		});
 
 		const imgArrLoad = imgArr.splice(0, 20);
-		//console.log(imgArrLoad, imgArr);
 		this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
 	}
 
@@ -86,7 +82,7 @@ class Feed extends Component {
 						<button id="right" onClick={this.handleRight}>
 							&#8594;
 						</button>
-						<div>{`${this.state.index}/${sessionStorage.length - 1}`}</div>
+						<div>{`${this.state.index + 1}/${sessionStorage.length - 1}`}</div>
 					</div>
 					<Image
 						src={
