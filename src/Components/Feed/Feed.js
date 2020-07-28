@@ -42,7 +42,7 @@ class Feed extends Component {
 			return null;
 		});
 
-		const imgArrLoad = imgArr.splice(0, 20);
+		const imgArrLoad = imgArr.splice(0, 24);
 		this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
 	}
 
@@ -64,10 +64,10 @@ class Feed extends Component {
 	fetchMoreImages = () => {
 		setTimeout(() => {
 			const imgArr = this.state.imgArr;
-			const imgArrLoad = this.state.imgArrLoad.concat(imgArr.splice(0, 20));
+			const imgArrLoad = this.state.imgArrLoad.concat(imgArr.splice(0, 24));
 
 			this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
-		}, 1500);
+		}, 2000);
 	};
 
 	render() {
@@ -95,6 +95,7 @@ class Feed extends Component {
 				</div>
 				<InfiniteScroll
 					className="Feed-grid"
+					style={{ overflow: "hidden" }}
 					dataLength={this.state.imgArrLoad.length}
 					next={this.fetchMoreImages}
 					hasMore={this.state.imgArr.length !== 0}
@@ -104,17 +105,17 @@ class Feed extends Component {
 							<div className="Img-Loader" />
 						</div>
 					}
-					scrollableTarget="Feed"
 					endMessage={<h4>Fin</h4>}
 				>
 					{this.state.imgArrLoad.map((image, index) => {
 						return (
-							<div className="Feed-img-wrap" key={index}>
+							<div className="Feed-img-wrap">
 								<img
 									onClick={(e) => this.handleClick(e, index)}
 									className="Feed-img"
 									src={sessionStorage.getItem(index)}
 									alt={image}
+									key={index}
 								/>
 							</div>
 						);
