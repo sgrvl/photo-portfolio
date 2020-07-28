@@ -1,37 +1,31 @@
 .Feed
   height: 100vh
-  padding: 0.1em
   
 .Feed-grid
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(12em, 1fr))
   grid-auto-rows: 1fr
+  gap: 1em
   position: relative
-  padding: 0 15%
-  &::before
+  margin: 0 15%
+  &::before 
     content: ''
-    width: 0
-    padding-bottom: 100%
+    width: 0 
+    padding-bottom: 100% 
     grid-area: 1/1/1/1
-  &>*:first-child
+  & > *:first-child
     grid-area: 1/1/1/1
+    
+      
 
 @media screen and ( min-width: 1024px )
   .Feed-grid
-    grid-template-columns: repeat(auto-fill, minmax(18em, 1fr))
-
-.Feed-img-wrap
-  background-color: white
-  display: flex
-  justify-content: center
-  align-items: center
-  overflow: hidden
+    grid-template-columns: repeat(auto-fill, 18em)
 
 .Feed-img
   cursor: pointer
-  min-width: 100%
-  max-height: 100%
-  padding: 1em
+  height: 100%
+  width: 100%
   object-fit: cover
   user-select: none
   -webkit-tap-highlight-color: transparent  

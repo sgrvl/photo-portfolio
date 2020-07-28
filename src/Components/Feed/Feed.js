@@ -109,15 +109,13 @@ class Feed extends Component {
 				>
 					{this.state.imgArrLoad.map((image, index) => {
 						return (
-							<div className="Feed-img-wrap">
-								<img
-									onClick={(e) => this.handleClick(e, index)}
-									className="Feed-img"
-									src={sessionStorage.getItem(index)}
-									alt={image}
-									key={index}
-								/>
-							</div>
+							<img
+								onClick={(e) => this.handleClick(e, index)}
+								className="Feed-img"
+								src={sessionStorage.getItem(index)}
+								alt={image}
+								key={index}
+							/>
 						);
 					})}
 				</InfiniteScroll>
