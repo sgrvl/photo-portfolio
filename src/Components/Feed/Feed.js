@@ -32,21 +32,17 @@ class Feed extends Component {
 	};
 
 	componentDidMount() {
-		console.log(Math.random());
 		const images = this.importAll(
 			require.context("../../img", false, /\.(jpg)$/)
 		);
 		const imgArr = [];
 		Object.keys(images).map((image) => imgArr.push(image));
-		imgArr
-			.sort(() => Math.random() - 0.5)
-			.map((image, index) => {
-				sessionStorage.setItem(index, require(`../../img/${image}`));
-				return null;
-			});
+		imgArr.map((image, index) => {
+			sessionStorage.setItem(index, require(`../../img/${image}`));
+			return null;
+		});
 
-		const imgArrLoad = imgArr.splice(0, 20);
-		//console.log(imgArrLoad, imgArr);
+		const imgArrLoad = imgArr.splice(0, 24);
 		this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
 	}
 
@@ -68,10 +64,10 @@ class Feed extends Component {
 	fetchMoreImages = () => {
 		setTimeout(() => {
 			const imgArr = this.state.imgArr;
-			const imgArrLoad = this.state.imgArrLoad.concat(imgArr.splice(0, 20));
+			const imgArrLoad = this.state.imgArrLoad.concat(imgArr.splice(0, 24));
 
 			this.setState({ imgArr: imgArr, imgArrLoad: imgArrLoad });
-		}, 1500);
+		}, 2000);
 	};
 
 	render() {
@@ -86,7 +82,7 @@ class Feed extends Component {
 						<button id="right" onClick={this.handleRight}>
 							&#8594;
 						</button>
-						<div>{`${this.state.index}/${sessionStorage.length - 1}`}</div>
+						<div>{`${this.state.index + 1}/${sessionStorage.length - 1}`}</div>
 					</div>
 					<Image
 						src={
@@ -99,6 +95,7 @@ class Feed extends Component {
 				</div>
 				<InfiniteScroll
 					className="Feed-grid"
+					style={{ overflow: "hidden" }}
 					dataLength={this.state.imgArrLoad.length}
 					next={this.fetchMoreImages}
 					hasMore={this.state.imgArr.length !== 0}
@@ -108,19 +105,17 @@ class Feed extends Component {
 							<div className="Img-Loader" />
 						</div>
 					}
-					scrollableTarget="Feed"
 					endMessage={<h4>Fin</h4>}
 				>
 					{this.state.imgArrLoad.map((image, index) => {
 						return (
-							<div className="Feed-img-wrap" key={index}>
-								<img
-									onClick={(e) => this.handleClick(e, index)}
-									className="Feed-img"
-									src={sessionStorage.getItem(index)}
-									alt={image}
-								/>
-							</div>
+							<img
+								onClick={(e) => this.handleClick(e, index)}
+								className="Feed-img"
+								src={sessionStorage.getItem(index)}
+								alt={image}
+								key={index}
+							/>
 						);
 					})}
 				</InfiniteScroll>

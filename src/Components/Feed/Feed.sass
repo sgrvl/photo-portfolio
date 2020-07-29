@@ -1,32 +1,34 @@
 .Feed
-  overflow-y: scroll
   height: 100vh
-  padding: 7.5px
   
 .Feed-grid
-  display: flex
-  flex-wrap: wrap
-  justify-content: space-evenly
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr))
+  grid-auto-rows: 1fr
+  gap: 1em
   position: relative
-  padding-top: 5em
+  margin: 0 15%
+  &::before 
+    content: ''
+    width: 0 
+    padding-bottom: 100% 
+    grid-area: 1/1/1/1
+  & > *:first-child
+    grid-area: 1/1/1/1
+    
+      
 
-.Feed-img-wrap
-  background-color: white
-  padding: 7.5px
-  height: 30vh
-  display: flex
-  justify-content: center
-  align-items: center
+@media screen and ( min-width: 1024px )
+  .Feed-grid
+    grid-template-columns: repeat(auto-fill, 18em)
 
 .Feed-img
   cursor: pointer
-  max-width: 320px
-  width: 100%
   height: 100%
-  padding: 1em
-  object-fit: contain
+  width: 100%
+  object-fit: cover
   user-select: none
-  -webkit-tap-highlight-color: transparent
+  -webkit-tap-highlight-color: transparent  
 
 .Zoom
   height: 100%
@@ -49,10 +51,12 @@
     display: none
 
 .Img-Loader-Wrap
-  width: 100vw
-  height: min-content
+  grid-column: 1/-1
+  width: 100%
+  height: 100%
   margin: 1em 0  
   display: flex
+  align-items: center
   justify-content: center
   
 .Img-Loader
